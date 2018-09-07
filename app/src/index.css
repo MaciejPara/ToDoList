@@ -1,0 +1,8 @@
+body,
+html {
+  background-color: lightgray;
+}
+#root {
+  height: 100%;
+  background-color: lightgray;
+}
