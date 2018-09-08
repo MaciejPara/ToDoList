@@ -3,3 +3,8 @@
   color: lightgray;
   opacity: 1; /* Firefox */
 }
+.btn-group {
+  display: inline-block;
+  float: right;
+  cursor: pointer;
+}

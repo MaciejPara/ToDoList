@@ -9,6 +9,7 @@ class App extends Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.updateColor = this.updateColor.bind(this);
   }
   handleDelete(e) {
     console.log(e + "deleted");
@@ -27,11 +28,25 @@ class App extends Component {
     let sticky = stickyTab;
     this.setState({ sticky });
   } // handleClick get info about clicked button and update state with stickys
+  updateColor(id, color) {
+    //console.log(id, color);
+    let stickyTab = this.state.sticky;
+    console.log(stickyTab);
+
+    stickyTab[id - 1].rNumb = color;
+
+    const sticky = stickyTab;
+    this.setState({ sticky });
+  }
   render() {
     return (
       <div className="aplication">
         <Header click={this.handleClick} />
-        <Main delete={this.handleDelete} stickys={this.state.sticky} />
+        <Main
+          changeColor={this.updateColor}
+          delete={this.handleDelete}
+          stickys={this.state.sticky}
+        />
       </div>
     );
   }

@@ -39,7 +39,11 @@ class Main extends Component {
     return (
       <div className="main">
         {this.updateMain() && (
-          <Stickys delete={this.props.delete} stickys={this.props.stickys} />
+          <Stickys
+            changeColor={this.props.changeColor}
+            delete={this.props.delete}
+            stickys={this.props.stickys}
+          />
         )}
       </div>
     );

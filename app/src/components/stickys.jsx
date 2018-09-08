@@ -15,9 +15,14 @@ class Stickys extends Component {
       ]
     };
     this.delete = this.delete.bind(this);
+    this.updateColor = this.updateColor.bind(this);
   }
   delete(e) {
     this.props.delete(e);
+  }
+  updateColor(id, color) {
+    console.log(id + " " + color + "--color");
+    this.props.changeColor(id, color);
   }
   render() {
     return (
@@ -44,21 +49,33 @@ class Stickys extends Component {
                   resize: "none"
                 }}
               />
-              <button
-                onClick={() => this.delete(stickys.id)}
-                type="button"
-                className="delete btn btn-danger"
-              >
-                Delete
-              </button>
+              <div className="btn-group" role="group">
+                <button
+                  id="btnGroupDrop1"
+                  type="button"
+                  className="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                />
+                <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <a
+                    className="dropdown-item"
+                    onClick={() => this.delete(stickys.id)}
+                  >
+                    Delete
+                  </a>
+                </div>
+              </div>
             </div>
             <div className="card-body">
-              <p className="card-text text-white">
+              <div className="row card-text text-white">
                 <textarea
+                  className="col"
                   placeholder="Write your note"
                   cols="30"
                   rows="5"
-                  maxLength="100"
+                  maxLength="80"
                   style={{
                     height: "100%",
                     width: "100%",
@@ -69,7 +86,44 @@ class Stickys extends Component {
                     resize: "none"
                   }}
                 />
-              </p>
+                <div className="col-3 btn-group-vertical">
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => this.updateColor(stickys.id, 0)}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => this.updateColor(stickys.id, 1)}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-warning"
+                    onClick={() => this.updateColor(stickys.id, 2)}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-success"
+                    onClick={() => this.updateColor(stickys.id, 3)}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => this.updateColor(stickys.id, 4)}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    onClick={() => this.updateColor(stickys.id, 5)}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-dark"
+                    onClick={() => this.updateColor(stickys.id, 6)}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         ))}
