@@ -3,15 +3,24 @@ import "./css/sticky.css";
 class Stickys extends Component {
   constructor(props) {
     super(props);
+    this.color = "primary";
     this.state = {
-      color: [
-        { value: "primary" },
-        { value: "secondary" },
-        { value: "warning" },
-        { value: "success" },
-        { value: "danger" },
-        { value: "info" },
-        { value: "dark" }
+      defColor: [
+        { id: 0, value: "primary" },
+        { id: 1, value: "secondary" },
+        { id: 2, value: "warning" },
+        { id: 3, value: "success" },
+        { id: 4, value: "danger" },
+        { id: 5, value: "info" },
+        { id: 6, value: "dark" }
+      ],
+      curColor: [
+        { id: 0, value: "primary" },
+        { id: 1, value: "secondary" },
+        { id: 2, value: "warning" },
+        { id: 3, value: "success" },
+        { id: 4, value: "danger" },
+        { id: 6, value: "dark" }
       ]
     };
     this.delete = this.delete.bind(this);
@@ -20,9 +29,13 @@ class Stickys extends Component {
   delete(e) {
     this.props.delete(e);
   }
-  updateColor(id, color) {
-    console.log(id + " " + color + "--color");
-    this.props.changeColor(id, color);
+  updateColor(id, colNr) {
+    console.log(id + " " + colNr + "--color");
+    this.props.changeColor(id, colNr);
+    // let curColor = this.state.defColor.filter(c => c.id !== colNr);
+    // this.setState({ curColor });
+    // const defColor = this.props.stickys[colNr].curColor;
+    // this.setState({ defColor });
   }
   render() {
     return (
@@ -32,7 +45,7 @@ class Stickys extends Component {
             key={stickys.id}
             className={
               "sticky card text-white bg-" +
-              this.state.color[stickys.rNumb].value +
+              this.state.defColor[stickys.rNumb].value +
               " mb-3"
             }
             style={{ maxWidth: "18rem" }}
@@ -87,7 +100,15 @@ class Stickys extends Component {
                   }}
                 />
                 <div className="col-3 btn-group-vertical">
-                  <button
+                  {stickys.curColor.map(color => (
+                    <button
+                      key={color.id}
+                      type="button"
+                      className={"btn btn-" + color.value}
+                      onClick={() => this.updateColor(stickys.id, color.id)}
+                    />
+                  ))}
+                  {/* <button
                     type="button"
                     className="btn btn-primary"
                     onClick={() => this.updateColor(stickys.id, 0)}
@@ -121,7 +142,7 @@ class Stickys extends Component {
                     type="button"
                     className="btn btn-dark"
                     onClick={() => this.updateColor(stickys.id, 6)}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
