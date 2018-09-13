@@ -11,6 +11,7 @@ class Main extends Component {
           stickys={this.props.stickys}
           title={this.props.title}
           content={this.props.content}
+          search={this.props.search}
         />
       </div>
     );

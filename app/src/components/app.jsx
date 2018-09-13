@@ -5,6 +5,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      search: "",
       stickyCount: 0,
       colors: [
         { id: 0, value: "primary" },
@@ -16,20 +17,6 @@ class App extends Component {
         { id: 6, value: "dark" }
       ],
       sticky: []
-      //   {
-      //     id: 0,
-      //     rNumb: 5,
-      //     curColor: [
-      //       { id: 0, value: "primary" },
-      //       { id: 1, value: "secondary" },
-      //       { id: 2, value: "warning" },
-      //       { id: 3, value: "success" },
-      //       { id: 4, value: "danger" },
-      //       { id: 6, value: "dark" }
-      //     ],
-      //     title: "sss",
-      //     content: "dddd"
-      //   }
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -37,12 +24,56 @@ class App extends Component {
     this.updateColor = this.updateColor.bind(this);
     this.setTitle = this.setTitle.bind(this);
     this.setContent = this.setContent.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
   componentDidMount() {
-    if (localStorage.getItem("sticky")) {
-      let object = localStorage.getItem("sticky");
-      console.log(JSON.parse(object));
-      this.setState({ sticky: JSON.parse(object) });
+    if (localStorage.getItem("sticky") && localStorage.getItem("stickyCount")) {
+      if (JSON.parse(localStorage.getItem("sticky"))[0] === undefined) {
+        console.log("ss");
+        this.setState({
+          sticky: [
+            {
+              id: 0,
+              rNumb: 5,
+              curColor: [
+                { id: 0, value: "primary" },
+                { id: 1, value: "secondary" },
+                { id: 2, value: "warning" },
+                { id: 3, value: "success" },
+                { id: 4, value: "danger" },
+                { id: 6, value: "dark" }
+              ],
+              title: "",
+              content: ""
+            }
+          ]
+        });
+        localStorage.setItem(
+          "sticky",
+          JSON.stringify({
+            id: 0,
+            rNumb: 5,
+            curColor: [
+              { id: 0, value: "primary" },
+              { id: 1, value: "secondary" },
+              { id: 2, value: "warning" },
+              { id: 3, value: "success" },
+              { id: 4, value: "danger" },
+              { id: 6, value: "dark" }
+            ],
+            title: "",
+            content: ""
+          })
+        );
+        this.setState({ stickyCount: 0 });
+        localStorage.setItem("stickyCount", JSON.stringify({ stickyCount: 0 }));
+      } else {
+        let count = localStorage.getItem("stickyCount");
+        let object = localStorage.getItem("sticky");
+        //console.log(JSON.parse(object));
+        this.setState({ sticky: JSON.parse(object) });
+        this.setState({ stickyCount: JSON.parse(count) });
+      }
     } else {
       this.setState({
         sticky: [
@@ -73,11 +104,14 @@ class App extends Component {
     localStorage.setItem("sticky", JSON.stringify(sticky));
 
     // Retrieve the object from storage
-    //var retrievedObject = localStorage.getItem("sticky");
+    // var retrievedObject = localStorage.getItem("sticky");
   }
   handleClick() {
+    let sth = JSON.parse(localStorage.getItem("sticky"));
+    console.log(sth[0]);
     let stickyCount = this.state.stickyCount + 1;
     this.setState({ stickyCount });
+    localStorage.setItem("stickyCount", JSON.stringify(stickyCount));
     const stickyTab = [...this.state.sticky];
 
     let rNr = Math.random() * (6 - 0) + 0;
@@ -140,16 +174,20 @@ class App extends Component {
     this.setState({ sticky });
     localStorage.setItem("sticky", JSON.stringify(sticky));
   }
+  handleSearch(e) {
+    this.setState({ search: e });
+  }
   render() {
     return (
       <div className="aplication">
-        <Header click={this.handleClick} />
+        <Header click={this.handleClick} handleSearch={this.handleSearch} />
         <Main
           changeColor={this.updateColor}
           delete={this.handleDelete}
           stickys={this.state.sticky}
           title={this.setTitle}
           content={this.setContent}
+          search={this.state.search}
         />
       </div>
     );

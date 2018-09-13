@@ -2,12 +2,16 @@ import React, { Component } from "react";
 class Header extends Component {
   constructor() {
     super();
-    this.state = {};
     this.handleClick = this.handleClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
   handleClick() {
     console.log("clicked");
     this.props.click();
+  }
+  handleSearch(e) {
+    console.log(e.target.value);
+    this.props.handleSearch(e.target.value);
   }
   render() {
     return (
@@ -24,23 +28,28 @@ class Header extends Component {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <div className="collapse navbar-collapse text-center" id="navbarNav">
+        <div
+          className="collapse navbar-collapse text-center flex-row-reverse"
+          id="navbarNav"
+        >
           <br />
+          <form className="form-inline my-2 my-lg-0 m-2">
+            <input
+              className="form-control"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              onChange={this.handleSearch}
+              style={{ width: "100%" }}
+            />
+          </form>
           <ul className="navbar-nav ">
             <li className="nav-item active">
               <a
-                className=" nav-link btn btn-outline-secondary"
+                className=" nav-link btn btn-outline-secondary "
                 onClick={this.handleClick}
               >
                 + Add new sticky <span className="sr-only">(current)</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                href="https://github.com/MaciejPara?tab=repositories"
-              >
-                My github
               </a>
             </li>
           </ul>

@@ -20,7 +20,6 @@ class Stickys extends Component {
     this.updateColor = this.updateColor.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
     this.handleContent = this.handleContent.bind(this);
-    //this.handleId = this.handleId.bind(this);
   }
   delete(e) {
     this.props.delete(e);
@@ -49,10 +48,17 @@ class Stickys extends Component {
     this.props.content(val, content.target.value);
   }
   render() {
+    let filteredStickys = this.props.stickys.filter(sticky => {
+      return (
+        sticky.title.toLowerCase().indexOf(this.props.search) !== -1 ||
+        sticky.content.toLowerCase().indexOf(this.props.search) !== -1
+      );
+    });
+
     return (
       <div>
-        {this.props.stickys &&
-          this.props.stickys.map(stickys => (
+        {filteredStickys &&
+          filteredStickys.map(stickys => (
             <div
               key={stickys.id}
               className={
