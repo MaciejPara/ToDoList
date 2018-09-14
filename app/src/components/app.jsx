@@ -29,7 +29,6 @@ class App extends Component {
   componentDidMount() {
     if (localStorage.getItem("sticky") && localStorage.getItem("stickyCount")) {
       if (JSON.parse(localStorage.getItem("sticky"))[0] === undefined) {
-        console.log("ss");
         this.setState({
           sticky: [
             {
@@ -107,8 +106,6 @@ class App extends Component {
     // var retrievedObject = localStorage.getItem("sticky");
   }
   handleClick() {
-    let sth = JSON.parse(localStorage.getItem("sticky"));
-    console.log(sth[0]);
     let stickyCount = this.state.stickyCount + 1;
     this.setState({ stickyCount });
     localStorage.setItem("stickyCount", JSON.stringify(stickyCount));
@@ -142,7 +139,7 @@ class App extends Component {
   } // handleClick get info about clicked button and update state with stickys
   updateColor(id, color) {
     let stickyTab = [...this.state.sticky];
-    console.log(id);
+    //console.log(id);
     const index = stickyTab.findIndex(i => i.id === id);
     const curColor = this.state.colors.filter(c => c.id !== color);
 
@@ -154,21 +151,21 @@ class App extends Component {
     localStorage.setItem("sticky", JSON.stringify(sticky));
   }
   setTitle(id, title) {
-    console.log(id);
+    //console.log(id);
     const stickyTab = [...this.state.sticky];
     const index = stickyTab.findIndex(i => i.id === id);
-    console.log(index);
+    //console.log(index);
     stickyTab[index].title = title;
     let sticky = stickyTab;
     this.setState({ sticky });
     localStorage.setItem("sticky", JSON.stringify(sticky));
   }
   setContent(id, content) {
-    console.log(id, content);
+    //console.log(id, content);
 
     const stickyTab = [...this.state.sticky];
     const index = stickyTab.findIndex(i => i.id === id);
-    console.log(index);
+    //console.log(index);
     stickyTab[index].content = content;
     let sticky = stickyTab;
     this.setState({ sticky });

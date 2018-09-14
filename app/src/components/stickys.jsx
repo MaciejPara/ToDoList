@@ -30,7 +30,7 @@ class Stickys extends Component {
     this.props.changeColor(id, colNr);
   }
   handleTitle(title) {
-    console.log(title.target.id);
+    //console.log(title.target.id);
     this.setState({ title: title.target.value });
     //console.log(event.target.value);
     let val = title.target.id;
@@ -38,7 +38,7 @@ class Stickys extends Component {
     this.props.title(val, title.target.value);
   }
   handleContent(content) {
-    console.log(content.target.name);
+    //console.log(content.target.name);
 
     this.setState({ content: content.target.value });
     //console.log(event.target.value);
@@ -50,8 +50,8 @@ class Stickys extends Component {
   render() {
     let filteredStickys = this.props.stickys.filter(sticky => {
       return (
-        sticky.title.toLowerCase().indexOf(this.props.search) !== -1 ||
-        sticky.content.toLowerCase().indexOf(this.props.search) !== -1
+        sticky.title.indexOf(this.props.search) !== -1 ||
+        sticky.content.indexOf(this.props.search) !== -1
       );
     });
 

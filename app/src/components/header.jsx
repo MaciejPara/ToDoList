@@ -6,11 +6,11 @@ class Header extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
   handleClick() {
-    console.log("clicked");
+    //console.log("clicked");
     this.props.click();
   }
   handleSearch(e) {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     this.props.handleSearch(e.target.value);
   }
   render() {
